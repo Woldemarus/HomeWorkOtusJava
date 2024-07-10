@@ -1,32 +1,24 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    id("java")
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-}
-
-group = "org.example"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+    id ("com.github.johnrengelman.shadow")
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
-    implementation("com.google.guava:guava:11.0.2")
-}
-tasks.register("prepareKotlinBuildScriptModel"){}
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
+    implementation ("com.google.guava:guava")
 }
 
 tasks {
-    val shadowJar by getting(ShadowJar::class) {
-        manifest.attributes["Main-Class"] = "org.example.Main"
+    named<ShadowJar>("shadowJar") {
+        archiveBaseName.set("gradleHelloWorld")
+        archiveVersion.set("0.1")
+        archiveClassifier.set("")
+        manifest {
+            attributes(mapOf("Main-Class" to "ru.otus.App"))
+        }
+    }
+
+    build {
+        dependsOn(shadowJar)
     }
 }
-
-
-
