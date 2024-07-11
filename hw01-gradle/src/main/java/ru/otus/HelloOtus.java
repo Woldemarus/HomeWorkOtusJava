@@ -3,8 +3,9 @@ package ru.otus;
 import com.google.common.collect.Queues;
 import java.util.Queue;
 
-public class App {
+public class HelloOtus {
 
+    @SuppressWarnings({"java:S106", "java:S1192"})
     public static void main(final String[] args) {
 
         // Creating a new instance of a queue using Guava's Queues class
